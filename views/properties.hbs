@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Properties</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .property-card {
+      transition: transform 0.2s ease-in-out;
+      height: 100%;
+    }
+    .property-card:hover {
+      transform: translateY(-5px);
+    }
+    .property-image {
+      height: 280px;
+      object-fit: cover;
+    }
+    .price-text {
+      color: #198754;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid px-3 px-lg-5 py-4">
+    
+    <!-- Header -->
+    <div class="text-center mb-5">
+      <h1 class="display-4 fw-bold text-dark mb-3">All Properties</h1>
+      <p class="lead text-muted">Find your perfect home</p>
+    </div>
+
+    <!-- Properties Grid -->
+    <div class="row g-4">
+      {{#each properties}}
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card property-card shadow-sm border-0 h-100">
+          
+          <!-- Property Images -->
+          {{#if images}}
+            <div id="carousel{{@index}}" class="carousel slide" data-bs-ride="false">
+              
+              <!-- Indicators -->
+              {{#if images.[1]}}
+              <div class="carousel-indicators">
+                {{#each images}}
+                <button type="button" 
+                        data-bs-target="#carousel{{@../index}}" 
+                        data-bs-slide-to="{{@index}}" 
+                        {{#if @first}}class="active" aria-current="true"{{/if}} 
+                        aria-label="Slide {{@index}}"></button>
+                {{/each}}
+              </div>
+              {{/if}}
+              
+              <!-- Image slides -->
+              <div class="carousel-inner">
+                {{#each images}}
+                <div class="carousel-item {{#if @first}}active{{/if}}">
+                  <img src="{{this}}" class="card-img-top property-image" alt="Property Image">
+                </div>
+                {{/each}}
+              </div>
+              
+              <!-- Navigation arrows -->
+              {{#if images.[1]}}
+              <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{@index}}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carousel{{@index}}" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+              {{/if}}
+            </div>
+          {{else}}
+            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 280px;">
+              <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+            </div>
+          {{/if}}
+
+          <!-- Card Body -->
+          <div class="card-body d-flex flex-column">
+            
+            <!-- Property Type -->
+            <div class="text-center mb-3">
+              <span class="badge bg-success fs-6 text-uppercase">{{propertyType}}</span>
+            </div>
+
+            <!-- Description -->
+            {{#if description}}
+            <p class="card-text text-muted mb-3">{{description}}</p>
+            {{/if}}
+
+            <!-- Property Details -->
+            <div class="mb-3 flex-grow-1">
+              {{#if location}}
+              <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+                <span class="text-muted">
+                  <i class="bi bi-geo-alt"></i> Location
+                </span>
+                <span class="fw-medium">{{location}}</span>
+              </div>
+              {{/if}}
+
+              {{#if address}}
+              <div class="d-flex justify-content-between align-items-start mb-2 pb-2 border-bottom">
+                <span class="text-muted">
+                  <i class="bi bi-house"></i> Address
+                </span>
+                <span class="fw-medium text-end">{{address}}</span>
+              </div>
+              {{/if}}
+
+              {{#if price}}
+              <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+                <span class="text-muted">
+                  <i class="bi bi-currency-dollar"></i> Price
+                </span>
+                <span class="price-text fs-5">{{price}}</span>
+              </div>
+              {{/if}}
+
+              {{#if ownerNo}}
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="text-muted">
+                  <i class="bi bi-telephone"></i> Contact
+                </span>
+                <a href="tel:{{ownerNo}}" class="btn btn-sm btn-outline-success">
+                  <i class="bi bi-phone"></i> {{ownerNo}}
+                </a>
+              </div>
+              {{/if}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+    <!-- No Properties Message -->
+    {{#unless properties}}
+    <div class="text-center py-5">
+      <div class="mb-4">
+        <i class="bi bi-house-x text-muted" style="font-size: 4rem;"></i>
+      </div>
+      <h3 class="text-muted">No Properties Available</h3>
+      <p class="text-muted">Check back later for new listings!</p>
+    </div>
+    {{/unless}}
+
+  </div>
+
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
