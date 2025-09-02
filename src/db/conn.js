@@ -1,11 +1,5 @@
-const mongoose = require ('mongoose');
-
-mongoose.connect('mongodb://localhost:27017/register',{
-    useNewUrlParser: true, 
-    useUnifiedTopology: true,
-    family: 4,
-}).then(()=>{
-    console.log("connection success")
-}).catch((e)=>{
-    console.log(e)
-})
+const mongoose = require('mongoose');
+const uri = process.env.MONGO_URI || "mongodb://localhost:27017/yourlocaldb";
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(()=> console.log('DB connected'))
+  .catch(err=> console.error('DB error', err));

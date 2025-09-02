@@ -238,7 +238,7 @@ app.all('*',(req,res)=>{
     res.status(404).send("<h1>resource not found</h1>")
 })
 
-app.listen(5000,()=>{
-    console.log("hit port 5000")
-})
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server listening on ${port}`));
+
 
