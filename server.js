@@ -19,19 +19,19 @@ app.use(express.static('./public'));
 app.set("view engine", "hbs");
 
 app.get('/',(req,res)=>{
-res.render("login");
+res.render("index");
 console.log(req.query)
 })
 
-app.get('/login',(req,res)=>{
-    res.render("login");
-    })
+// app.get('/login',(req,res)=>{
+//     res.render("login");
+//     })
 
-app.get('/register',(req,res)=>{
-    res.render('register');
-    console.log(req.query)
+// app.get('/register',(req,res)=>{
+//     res.render('register');
+//     console.log(req.query)
 
-})
+// })
 
 app.get('/index',(req,res)=>{
     res.render('index');
@@ -142,49 +142,49 @@ app.post('/addProperty', (req, res, next) => {
 
 
 // creating userdata
-app.post('/register',async (req,res)=>{
-    try {
-        const password = req.body.password;
-        const cpassword = req.body.cpassword;
+// app.post('/register',async (req,res)=>{
+//     try {
+//         const password = req.body.password;
+//         const cpassword = req.body.cpassword;
 
-        if(password===cpassword){
-             const registerEmployee = new Register({
-                Username : req.body.Username,
-                email : req.body.email,
-                password : req.body.password,
-                cpassword : req.body.cpassword,
-           })
-        //    registerEmployee.save()
-           const registered = await registerEmployee.save();
-           res.status(201).render('login');
-        }else{
-            res.send("<h1>PLEASE MATCH THE PASSWORDS....</h1>")
-        }
-    } catch (error) {
-        res.status(404).send(error)
-    }
+//         if(password===cpassword){
+//              const registerEmployee = new Register({
+//                 Username : req.body.Username,
+//                 email : req.body.email,
+//                 password : req.body.password,
+//                 cpassword : req.body.cpassword,
+//            })
+//         //    registerEmployee.save()
+//            const registered = await registerEmployee.save();
+//            res.status(201).render('login');
+//         }else{
+//             res.send("<h1>PLEASE MATCH THE PASSWORDS....</h1>")
+//         }
+//     } catch (error) {
+//         res.status(404).send(error)
+//     }
 
-})
+// })
 
-app.post('/login',async (req,res)=>{
+// app.post('/login',async (req,res)=>{
    
-    try {
+//     try {
         
-       const email = req.body.email;
-       const password = req.body.password;
+//        const email = req.body.email;
+//        const password = req.body.password;
 
-       const userMail = await Register.findOne({email:email});
-       if(userMail.password === password){
-        res.status(201).render('index');
-       }else{
-        res.send("<h1>INVALID CREDENTIALS. PLEASE TRY AGAIN....</h1>")
-       }
+//        const userMail = await Register.findOne({email:email});
+//        if(userMail.password === password){
+//         res.status(201).render('index');
+//        }else{
+//         res.send("<h1>INVALID CREDENTIALS. PLEASE TRY AGAIN....</h1>")
+//        }
 
-    } catch (error) {
-        res.status(400).send("invalid email")
-    }
+//     } catch (error) {
+//         res.status(400).send("invalid email")
+//     }
 
-    })
+//     })
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/properties', async (req, res, next) => {
